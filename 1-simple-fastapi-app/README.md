@@ -31,17 +31,17 @@ docker run -p 8000:8000 my-fastapi-app
 ```
 Add `sudo` if above command does not work.(ubuntu, linux only)
 ```
-docker run -p 8000:8000 my-fastapi-app 
+sudo docker run -p 8000:8000 my-fastapi-app 
 ```
 
 add argument `-d` to run as background 
 
 ```
-docker run -p 8000:8000 my-fastapi-app -d
+docker run -d -p 8000:8000 my-fastapi-app
 ```
 Or
 ```
-docker run -p 8000:8000 my-fastapi-app -d
+sudo docker run -d -p 8000:8000 my-fastapi-app
 ```
 
 Explain: 
