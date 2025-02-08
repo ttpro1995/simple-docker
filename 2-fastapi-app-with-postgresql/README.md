@@ -33,6 +33,7 @@ We need to run the postgresql database first.
 ```
 docker run -d --name my-postgres-db \
 -p 10000:5432 \
+-v ./src:/app \
 -e POSTGRES_PASSWORD=mysecretpassword \
 postgres:17.2
 ```
@@ -42,6 +43,7 @@ postgres:17.2
 - `-p`: port forwarding
     -  10000 is port expose outside to host machine. 
     -  5432 is port in container 
+- `-v`: volume mapping
 - `-e`: environment variable
     - `POSTGRES_PASSWORD=mysecretpassword` is password for postgresql
 - `postgres`: name of image

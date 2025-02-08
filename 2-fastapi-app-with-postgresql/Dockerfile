@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN uv pip install --system --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code to the working directory
-COPY fastapi_app.py .
+# COPY fastapi_app.py .
 
 # Expose the port that the FastAPI application will be running on
 EXPOSE 8000
