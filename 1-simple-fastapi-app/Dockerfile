@@ -12,10 +12,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code to the working directory
-COPY fastapi_app.py .
+# COPY fastapi_app.py .
+# or we can map the application to docker container
+
 
 # Expose the port that the FastAPI application will be running on
 EXPOSE 8000
 
 # Set the entrypoint command to run the FastAPI application
 CMD ["uvicorn", "fastapi_app:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["tail", "-f", "/dev/null"]

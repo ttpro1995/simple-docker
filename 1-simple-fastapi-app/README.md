@@ -24,31 +24,28 @@ Explain:
 - build: tell docker engine to build image from Dockerfile. Build context is . (the dot, current directory)
 - `-t` name of image 
 
-### 2. Run docker image 
+### 2. Run docker container from docker image 
 
 ```
-docker run -p 8000:8000 my-fastapi-app 
+docker run -p 8000:8000 -v ./src:/app my-fastapi-app
 ```
 Add `sudo` if above command does not work.(ubuntu, linux only)
 ```
-sudo docker run -p 8000:8000 my-fastapi-app 
+sudo docker run -p 8000:8000 -v ./src:/app my-fastapi-app
 ```
 
 add argument `-d` to run as background 
 
 ```
-docker run -d -p 8000:8000 my-fastapi-app
+docker run -d -p 8000:8000 -v ./src:/app my-fastapi-app
 ```
-Or
-```
-sudo docker run -d -p 8000:8000 my-fastapi-app
-```
+
 
 Explain: 
 - `run`: tell docker to start a container use `my-fastapi-app` image 
 - `-p`: port forwarding, map <host-pc-port>:<container-port>, so the example above, it map localhost:8000 to 0.0.0.0:8000 inside container
 - `-d`: run in background, no lock terminal, turn off terminal does not kill container 
-
+- `-v`: volume, map host file to container file
 
 ### 3. Test if it work 
 
