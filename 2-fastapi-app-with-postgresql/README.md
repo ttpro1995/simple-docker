@@ -33,7 +33,6 @@ We need to run the postgresql database first.
 ```
 docker run -d --name my-postgres-db \
 -p 10000:5432 \
--v ./src:/app \
 -e POSTGRES_PASSWORD=mysecretpassword \
 postgres:17.2
 ```
@@ -52,6 +51,7 @@ postgres:17.2
 docker run -p 8111:8000 \
 --name my-fastapi-container \
 --link my-postgres-db:db \
+-v ./src:/app \
 -d \
 -e DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres \
 my-fastapi-app-with-postgresql

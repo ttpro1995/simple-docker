@@ -2,7 +2,7 @@
 FROM python:3.11-slim-buster
 
 
-RUN pip install uv
+# RUN pip install uv
 
 # Set the working directory in the container
 WORKDIR /app
@@ -11,7 +11,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the dependencies
-RUN uv pip install --system --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
 
 # Copy the rest of the application code to the working directory
 # COPY fastapi_app.py .
