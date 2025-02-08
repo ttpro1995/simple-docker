@@ -1,0 +1,31 @@
+name: fastapi-postgres-app-group
+services:
+  fastapi-app:
+    build: ./fastapi-app
+    ports:
+      - "8222:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/database
+    volumes:
+      - ./fastapi-app/src:/app:ro
+  db:
+    image: postgres:17.2
+    ports:
+      - "11111:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./initdb.d:/docker-entrypoint-initdb.d/:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d database"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  db-data:
