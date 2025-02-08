@@ -65,7 +65,7 @@ Explain:
 - `--name`: name of container
 - `--link`: link container to another container, in this case, link to `my-postgres-db` container
 - `-e`: environment variable, use environment variable `DATABASE_URL` to connect to postgresql database
-
+- `-v`: volume mapping, map ./src to /app inside container
 
 ### 3. Test if it work 
 
