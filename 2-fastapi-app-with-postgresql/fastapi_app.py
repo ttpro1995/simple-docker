@@ -62,6 +62,10 @@ def read_note(name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Note not found")
     return db_note
 
+@app.get("/")
+def read_root():
+    return {"Hello": "Hello from fastapi backend inside docker"}
+
 # Run the FastAPI application with Uvicorn
 if __name__ == "__main__":
     import uvicorn

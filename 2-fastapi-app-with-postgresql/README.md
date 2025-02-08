@@ -47,39 +47,72 @@ postgres:17.2
 - `postgres`: name of image
 
 ```
-docker run -p 8000:8000 \
+docker run -p 8111:8000 \
 --name my-fastapi-container \
 --link my-postgres-db:db \
+-d \
 -e DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres \
 my-fastapi-app-with-postgresql
 ```
-Add `sudo` if above command does not work.(ubuntu, linux only)
-```
-sudo docker run -p 8000:8000 my-fastapi-app 
-```
 
-add argument `-d` to run as background 
-
-```
-docker run -d -p 8000:8000 my-fastapi-app
-```
-Or
-```
-sudo docker run -d -p 8000:8000 my-fastapi-app
-```
 
 Explain: 
 - `run`: tell docker to start a container use `my-fastapi-app` image 
 - `-p`: port forwarding, map <host-pc-port>:<container-port>, so the example above, it map localhost:8000 to 0.0.0.0:8000 inside container
 - `-d`: run in background, no lock terminal, turn off terminal does not kill container 
+- `--name`: name of container
+- `--link`: link container to another container, in this case, link to `my-postgres-db` container
+- `-e`: environment variable, use environment variable `DATABASE_URL` to connect to postgresql database
 
 
 ### 3. Test if it work 
 
 ```
-curl localhost:8000
+curl localhost:8111
 ```
 
+
+Insert some data into postgresql database.
+
+```
+curl -X 'POST' \
+  'http://127.0.0.1:8111/notes/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "note_number_1",
+  "content": "This is note number 1"
+}'
+
+
+curl -X 'POST' \
+  'http://127.0.0.1:8111/notes/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "note_number_2",
+  "content": "This is note number 2"
+}'
+
+
+
+
+```
+
+
+Get notes 
+```
+curl -X 'GET' \
+  'http://127.0.0.1:8111/notes/note_number_1' \
+  -H 'accept: application/json'
+
+
+curl -X 'GET' \
+  'http://127.0.0.1:8111/notes/note_number_2' \
+  -H 'accept: application/json'
+
+
+```
 
 ### 4. Clean up - delete container
 
