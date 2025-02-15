@@ -5,7 +5,8 @@ services:
     ports:
       - "8222:8000"
     depends_on:
-      - db
+      db:
+          condition: service_healthy
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/database
     volumes:
@@ -19,7 +20,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=database
     volumes:
-      - db-data:/var/lib/postgresql/data
+      # - db-data:/var/lib/postgresql/data
       - ./initdb.d:/docker-entrypoint-initdb.d/:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d database"]
@@ -27,5 +28,5 @@ services:
       timeout: 3s
       retries: 5
 
-volumes:
-  db-data:
+# volumes:
+#   db-data:

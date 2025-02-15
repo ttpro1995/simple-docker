@@ -37,7 +37,7 @@ sudo docker run -p 8000:8000 -v ./src:/app my-fastapi-app
 add argument `-d` to run as background 
 
 ```
-docker run -d -p 8000:8000 -v ./src:/app my-fastapi-app
+docker run -p 8000:8000 -v ./src:/app my-fastapi-app
 ```
 
 
